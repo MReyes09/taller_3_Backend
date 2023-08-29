@@ -1,13 +1,7 @@
-from .base import Base
+from models.base import Base
 from sqlalchemy import Column, Integer, String
 
 class User(Base):
-    
-    """
-        TABLA USER
-        
-        COLLUMNS: ID, USERNAME, PASSWORD
-    """
     
     __tablename__ = "usuario"
     
@@ -16,4 +10,4 @@ class User(Base):
     password = Column(String(20), nullable= False)
     
     def __str__(self):
-        return self.name
+        return self.username

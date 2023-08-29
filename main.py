@@ -1,14 +1,12 @@
 from flask import Flask, jsonify, request
-from flask_cors import CORS
 from sqlalchemy.orm import sessionmaker
 from models import user
-from models import base
+from models.base import Base
 from config import credenciales
 from sqlalchemy import create_engine
 
 
 app = Flask(__name__)
-CORS(app)
 
 engine = create_engine(credenciales.DB_URL)
 Session = sessionmaker(engine)
@@ -23,11 +21,12 @@ def home():
 
 def init_database():
     
-    base.Base.metadata.drop_all(engine)
-    base.Base.metadata.create_all(engine)
+    Base.metadata.drop_all(engine)
+    Base.metadata.create_all(engine)
 
 
 if __name__ == "__main__":
     
-    init_database()
-    app.run(host = '0.0.0.0', port = 8000, debug = True)
+    with app.app_context():
+        init_database()
+        app.run(host = "0.0.0.0", port = 8000, debug=True)
