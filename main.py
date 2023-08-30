@@ -107,6 +107,25 @@ def delete_User(id):
     session_.delete(user_)
     session_.commit()
     return jsonify({"msj":"El usuario fue eliminado"})
+
+@app.route('/login', methods=['POST'])
+
+def login_User():
+    
+    try:
+        data = request.json
+        username = data.get('username')
+        password = data.get('password')
+        
+        user = session_.query(User).filter_by(username=username, password=password).first()
+        
+        if user:
+            return jsonify({'message': 'Inicio de sesión exitoso'})
+        else:
+            return jsonify({'message': 'Credenciales incorrectas'})
+
+    except Exception as e:
+        return jsonify({'error': str(e)})
         
 if __name__ == "__main__":
     
