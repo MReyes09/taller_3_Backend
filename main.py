@@ -26,7 +26,7 @@ def init_database():
     Base.metadata.drop_all(engine)
     Base.metadata.create_all(engine)
 
-@app.route('/usuario_nuevo', methods = ['POST'])
+@app.route('/registro', methods = ['POST'])
 
 def create_User():
     
